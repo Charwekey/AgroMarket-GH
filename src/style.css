@@ -1,0 +1,305 @@
+body {
+      margin: 0;
+      font-family: 'Nunito', sans-serif;
+      background-image: url(../images/Field1\ \(2\).jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+        background-attachment: fixed;
+    }
+    header {
+      background: linear-gradient(to right, rgba(56, 142, 60, 0.9) 40%, rgba(0, 0, 0, 0.4)), url('your-image.jpg');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      padding: 2rem;
+    }
+    .logo {
+      width: 180px;
+      height: auto;
+      position: fixed;
+      top: -70px;
+      left: 20px;
+        z-index: 2;
+
+    }
+    .logoo{
+        top: 0;
+        position: fixed;
+        border: 1px solid #eff7d3;
+        background-color:  #eff7d3;
+        width: 100%;
+        height: 50px;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+    }
+    .header-content {
+      max-width: 600px;
+    }
+    .header-content h1 {
+      font-size: 2.3rem;
+      margin-bottom: 1rem;
+      opacity: 0;
+          transform: translateY(20px);
+       animation: fadeInUp 1.5s ease-out forwards;
+      animation-delay: 0.3s;
+    }
+    .header-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+       transform: translateY(20px);
+      animation: fadeInUp 1.5s ease-out forwards;
+      animation-delay: 0.6s;
+    }
+    .header-content .btnn{
+      background: #F9A825;
+      color: #212121;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+       margin-right: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1.5s ease-out forwards;
+    }
+    .header-content .btnn:hover {
+      background: #c17900;
+    }
+     .header-content .btnn {
+      animation-delay: 1s;
+    }
+    .header-content .btn {
+      background: white;
+      color: #388E3C;
+      animation-delay: 1.3s;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+.btn{
+    background: #fcfbfb;
+      color: #388E3C;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+       margin-right: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1.5s ease-out forwards;
+    
+}
+#home{
+        z-index: 1;
+}
+    /* Get Started Section */
+
+/* Auth Section */
+#auth-section {
+  display: none;
+  position: relative;
+  width: 100vh;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 50px auto;
+}
+
+.auth-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  background: url('your-image.jpg') no-repeat center center;
+  background-size: cover;
+  z-index: 1;
+}
+
+.auth-box {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 30px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: flex ;
+  justify-content: center
+  ;
+}
+
+.auth-box h2 {
+  text-align: center;
+  color: #388E3C;
+  margin-bottom: 1rem;
+}
+
+Forms
+form {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  margin: 5px auto;
+  left: -10px;
+}
+
+form input,
+form select {
+  width: 100%;
+  padding: 7px;
+  margin: 8px auto;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+ /* display: flex;
+  flex-direction: column; */
+  display: flex;    
+  justify-content: center;
+  transition: all 0.3s ease;
+
+}
+
+option {
+  padding: 7px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+form input::placeholder{
+font-size: 15px;
+}
+
+form input:hover,:focus{
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.short-btn {
+  padding: 7px;
+  background: #388E3C;
+  color: white;
+  border: none;
+  width: 40%;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+    margin: 5px auto;
+}
+
+
+/* Google button */
+.google-auth {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.google-btn {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.google-btn img {
+  width: 20px;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+/* Switch text */
+.switch-msg {
+  margin-top: 1.2rem;
+  font-size: ;
+  color: #212121;
+}
+
+.switch-msg a {
+  color: #388E3C;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.how-it-works-container,
+.learn-more-container {
+  background: white;
+   /* background: linear-gradient(to right, rgba(205, 238, 207, 0.9) 40%, rgba(54, 51, 51, 0.4)), url('your-image.jpg'); */
+  padding: 4rem 2rem;
+  text-align: center;
+  
+
+  
+}
+
+.section-title {
+  font-size: 2rem;
+  color: #388E3C;
+  margin-bottom: 2rem;
+}
+
+.video-container video {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-box {
+  background:#a7b99e;
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 1.5rem auto;
+  padding: 2rem;
+  max-width: 600px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-box h3 {
+  color: #388E3C;
+  margin-bottom: 1rem;
+}
+
+.info-box p {
+  color: #212121;
+  font-size: 1rem;
+}
+
+.info-box:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
