@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Farmer Dashboard - AgroMarket GH</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .sidebar {
+       background: linear-gradient(135deg, #48944c 0%, #75e07a 100%);
+    }
+  
+    .card-hover:hover {
+      transform: translateY(-2px);
+      transition: all 0.3s ease;
+    }
+    .product-card {
+      transition: all 0.3s ease;
+    }
+    .product-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .nav-item {
+      transition: all 0.3s ease;
+    }
+    .nav-item:hover {
+      background-color: rgba(34, 197, 94, 0.8) !important;
+    }
+    .nav-item.active {
+      background-color: rgba(21, 128, 61, 1) !important;
+    }
+    .btn-green {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      transition: all 0.3s ease;
+    }
+    .btn-green:hover {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+    .modal.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation -->
+    <nav class="bg-white shadow-lg ">
+    <div class="max-w-7xl mx-auto px-4 sm:px-3 lg:px-3">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+         <img src="../images/logo (2).png" alt="AgroMarket" class="w-[150px] h-auto">
+
+          <!-- <span class="ml-2 text-xl font-bold text-blue-600">Buyer Dashboard</span> -->
+        </div>
+        <div class="flex items-center space-x-4">
+          
+          <span id="farmer-name" class="text-gray-700 font-medium">John Farmer</span>
+          <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+            <i class="fas fa-sign-out-alt mr-2"></i>Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Dashboard -->
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="sidebar w-64 text-white">
+      <div class="p-6">
+        <h3 class="text-lg font-semibold mb-4">Menu</h3>
+        <nav class="space-y-2">
+          <a href="#overview" class="nav-item flex items-center p-3 rounded-lg transition active" onclick="dashboard.showSection('overview')">
+            <i class="fas fa-chart-pie mr-3"></i>Overview
+          </a>
+          <a href="#products" class="nav-item flex items-center p-3 rounded-lg transition" onclick="dashboard.showSection('products')">
+            <i class="fas fa-seedling mr-3"></i>My Products
+          </a>
+          <a href="#orders" class="nav-item flex items-center p-3 rounded-lg transition" onclick="dashboard.showSection('orders')">
+            <i class="fas fa-shopping-cart mr-3"></i>Orders
+          </a>
+          <a href="#analytics" class="nav-item flex items-center p-3 rounded-lg transition" onclick="dashboard.showSection('analytics')">
+            <i class="fas fa-chart-line mr-3"></i>Analytics
+          </a>
+          <a href="#profile" class="nav-item flex items-center p-3 rounded-lg transition" onclick="dashboard.showSection('profile')">
+            <i class="fas fa-user mr-3"></i>Profile
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 overflow-y-auto">
+      <!-- Overview Section -->
+      <div id="overview-section" class="p-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Farm Overview</h1>
+        
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div class="bg-white p-6 rounded-lg shadow card-hover">
+            <div class="flex items-center">
+              <div class="p-3 rounded-full bg-green-100 text-green-600">
+                <i class="fas fa-seedling text-2xl"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-gray-600 text-sm">Total Products</p>
+                <p id="total-products" class="text-2xl font-bold text-gray-800">0</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-lg shadow card-hover">
+            <div class="flex items-center">
+              <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                <i class="fas fa-shopping-cart text-2xl"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-gray-600 text-sm">Total Orders</p>
+                <p id="total-orders" class="text-2xl font-bold text-gray-800">0</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-lg shadow card-hover">
+            <div class="flex items-center">
+              <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
+                <i class="fas fa-dollar-sign text-2xl"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-gray-600 text-sm">Total Revenue</p>
+                <p id="total-revenue" class="text-2xl font-bold text-gray-800">GH₵0</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-lg shadow card-hover">
+            <div class="flex items-center">
+              <div class="p-3 rounded-full bg-purple-100 text-purple-600">
+                <i class="fas fa-users text-2xl"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-gray-600 text-sm">Total Customers</p>
+                <p id="total-customers" class="text-2xl font-bold text-gray-800">0</p>
+              </div>
+            </div>
+          </div>  
+        </div>
+
+        <!-- Recent Activities -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h2 class="text-xl font-bold text-gray-800 mb-4">Recent Activities</h2>
+          <div id="recent-activities" class="space-y-3">
+            <p class="text-gray-600">No recent activities</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products Section -->
+      <div id="products-section" class="p-8" style="display: none;">
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-3xl font-bold text-gray-800">My Products</h1>
+          <button onclick="dashboard.openProductModal()" class="btn-green text-white px-6 py-3 rounded-lg font-medium">
+            <i class="fas fa-plus mr-2"></i>Add New Product
+          </button>
+        </div>
+        
+        <div id="products-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Products will be loaded here -->
+        </div>
+      </div>
+
+      <!-- Orders Section -->
+      <div id="orders-section" class="p-8" style="display: none;">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Customer Orders</h1>
+        
+        <!-- Order Status Filter -->
+        <div class="mb-6">
+          <div class="flex space-x-4">
+            <button onclick="dashboard.filterOrders('all')" class="filter-btn bg-green-500 text-white px-4 py-2 rounded-lg">All Orders</button>
+            <button onclick="dashboard.filterOrders('pending')" class="filter-btn bg-yellow-500 text-white px-4 py-2 rounded-lg">Pending</button>
+            <button onclick="dashboard.filterOrders('completed')" class="filter-btn bg-blue-500 text-white px-4 py-2 rounded-lg">Completed</button>
+            <button onclick="dashboard.filterOrders('cancelled')" class="filter-btn bg-red-500 text-white px-4 py-2 rounded-lg">Cancelled</button>
+          </div>
+        </div>
+        
+        <div id="orders-container" class="space-y-4">
+          <!-- Orders will be loaded here -->
+        </div>
+      </div>
+
+      <!-- Analytics Section -->
+      <div id="analytics-section" class="p-8" style="display: none;">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Analytics</h1>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Sales Chart -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Monthly Sales</h3>
+            <div class="h-64 flex items-center justify-center text-gray-500">
+              <i class="fas fa-chart-line text-4xl mb-4"></i>
+              <p>Sales chart will be displayed here</p>
+            </div>
+          </div>
+          
+          <!-- Top Products -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Top Selling Products</h3>
+            <div id="top-products" class="space-y-3">
+              <!-- Top products will be loaded here -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Section -->
+      <div id="profile-section" class="p-8" style="display: none;">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Profile Settings</h1>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 max-w-2xl">
+          <form id="profile-form" class="space-y-6">
+            <div class="flex items-center space-x-6 mb-6">
+              <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center">
+                <i class="fas fa-user text-3xl text-green-600"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800">Profile Picture</h3>
+                <button type="button" class="mt-2 bg-green-100 text-green-600 px-4 py-2 rounded-lg hover:bg-green-200 transition">
+                  <i class="fas fa-camera mr-2"></i>Change Photo
+                </button>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                <input type="text" id="profile-name" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent" value="John Farmer">
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                <input type="email" id="profile-email" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent" value="john@example.com">
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                <input type="tel" id="profile-phone" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent" value="+233 123 456 789">
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                <input type="text" id="profile-location" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent" value="Accra, Ghana">
+              </div>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Farm Description</label>
+              <textarea id="profile-description" rows="4" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Tell customers about your farm...">We are a family-owned organic farm specializing in fresh vegetables and fruits. Our produce is grown using sustainable farming practices.</textarea>
+            </div>
+            
+            <button type="submit" class="btn-green text-white px-6 py-3 rounded-lg font-medium">
+              <i class="fas fa-save mr-2"></i>Save Changes
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Modal -->
+  <div id="product-modal" class="modal">
+    <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="p-6 border-b border-gray-200">
+        <div class="flex justify-between items-center">
+          <h2 id="modal-title" class="text-xl font-bold text-gray-800">Add New Product</h2>
+          <button onclick="dashboard.closeProductModal()" class="text-gray-400 hover:text-gray-600">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+      </div>
+      
+      <form id="product-form" class="p-6">
+        <div class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Product Name *</label>
+              <input type="text" name="productName" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="e.g., Fresh Tomatoes">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+              <select name="category" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                <option value="">Select Category</option>
+                <option value="Vegetables">Vegetables</option>
+                <option value="Fruits">Fruits</option>
+                <option value="Grains">Grains</option>
+                <option value="Herbs">Herbs</option>
+                <option value="Dairy">Dairy</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Price (GH₵) *</label>
+              <input type="number" name="price" required min="0" step="0.01" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="0.00">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Quantity *</label>
+              <input type="number" name="quantity" required min="1" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="0">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Unit *</label>
+              <select name="unit" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                <option value="">Select Unit</option>
+                <option value="kg">Kilogram (kg)</option>
+                <option value="g">Gram (g)</option>
+                <option value="piece">Piece</option>
+                <option value="bunch">Bunch</option>
+                <option value="bag">Bag</option>
+                <option value="liter">Liter</option>
+              </select>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Image URL</label>
+              <input type="url" name="image" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="https://example.com/image.jpg">
+            </div>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+            <textarea name="description" rows="3" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Describe your product..."></textarea>
+          </div>
+        </div>
+        
+        <div class="flex justify-end space-x-4 mt-6 pt-6 border-t border-gray-200">
+          <button type="button" onclick="dashboard.closeProductModal()" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+            Cancel
+          </button>
+          <button type="submit" class="btn-green text-white px-6 py-2 rounded-lg">
+            <i class="fas fa-save mr-2"></i>Save Product
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<script src="../src/farmer-dashboard.js"></script>
+</body>
+</html>

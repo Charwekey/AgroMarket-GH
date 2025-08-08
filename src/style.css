@@ -235,7 +235,7 @@ form input:hover,:focus{
 /* Switch text */
 .switch-msg {
   margin-top: 1.2rem;
-  font-size: ;
+  font-size: 1rem;
   color: #212121;
 }
 
@@ -303,3 +303,8 @@ form input:hover,:focus{
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
+.ref{
+  text-decoration: none;
+  color: black;
+  font-weight: 100;
+}

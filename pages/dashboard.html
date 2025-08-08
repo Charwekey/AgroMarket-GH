@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - AgroMarket GH</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .slide-in {
+      animation: slideIn 0.8s ease-out forwards;
+    }
+  </style>
+</head>
+
+<body >
+
+    <section class="bg-gray-50 min-h-screen flex flex-col items-center justify-center">
+  <div id="welcome-message" 
+       class="bg-green-100 text-green-800 px-6 py-4 rounded-lg shadow-lg text-lg font-semibold opacity-0">
+    <!-- Message will be injected here -->
+  </div>
+
+
+  <div class="flex space-x-4 mt-8">
+    <button class="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 transition">
+      <a class="text" href="../pages/farmer-dashboard.html">Farmer Dashboard</a>
+    </button>
+    
+    <button class="px-6 py-3 bg-yellow-600 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition">
+      <a class="text" href="../pages/buyersdashboard.html">Buyer Dashboard</a>
+    </button>
+
+
+    
+</div>
+
+</section>
+
+
+ <script src="../src/dashboard.js"></script>
+</body>
+</html>
