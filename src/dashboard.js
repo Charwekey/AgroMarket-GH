@@ -8,8 +8,8 @@
 
     // Customize message
     let message = firstTime 
-        ? `Welcome, ${userName} (${userRole})! 🎉` 
-        : `Welcome back to AgroMarket Gh ${userName} (${userRole})!`;
+        ? `Welcome to AgroMarket Gh! 🎉` 
+        : `Welcome back to AgroMarket Gh !`;
 
     welcomeDiv.textContent = message;
 
